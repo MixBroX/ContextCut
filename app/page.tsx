@@ -284,19 +284,8 @@ ${result.edgeCases.map(e => `- ${e}`).join('\n')}
                         : 'border-black bg-white text-black hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
                     }`}
                   >
-                    <Download className="w-3.5 h-3.5" />
-                    <span>Download .MD</span>
-                  </button>
-                  <button
-                    onClick={handleDownloadPDF}
-                    className={`flex items-center space-x-1.5 text-xs font-mono border px-3 py-1.5 transition-colors ${
-                      theme === 'dark'
-                        ? 'border-neutral-700 bg-neutral-900 text-neutral-200 hover:bg-neutral-800 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]'
-                        : 'border-black bg-white text-black hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
-                    }`}
-                  >
                     <Download className="w-3.5 h-3.5 text-emerald-400" />
-                    <span>Download PDF</span>
+                    <span>Download .MD</span>
                   </button>
                 </div>
               </div>
