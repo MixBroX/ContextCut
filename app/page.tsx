@@ -109,8 +109,33 @@ ${result.edgeCases.map(e => `- ${e}`).join('\n')}
     URL.revokeObjectURL(url);
   };
 
-  const handleDownloadPDF = () => {
-    window.print();
+  const handleDownloadPDF = async () => {
+    if (!result) return;
+    const element = document.getElementById('results-panel');
+    if (!element) return;
+
+    try {
+      const html2canvas = (await import('html2canvas')).default;
+      const { jsPDF } = await import('jspdf');
+
+      const canvas = await html2canvas(element, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: theme === 'dark' ? '#0a0a0a' : '#ffffff',
+      });
+
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+
+      pdf.addImage(imgData, 'PNG', 0, 10, pdfWidth, pdfHeight);
+      pdf.save('contextcut-analysis.pdf');
+    } catch (err) {
+      console.error('Failed to generate PDF:', err);
+      // Fallback to print if library fails
+      window.print();
+    }
   };
 
   const loadSample = () => {
@@ -246,7 +271,7 @@ ${result.edgeCases.map(e => `- ${e}`).join('\n')}
         </section>
 
         {/* Right Column: Output Structured Cards */}
-        <section className={`lg:col-span-7 p-6 lg:p-8 flex flex-col justify-between overflow-y-auto transition-colors duration-200 ${theme === 'dark' ? 'bg-neutral-950' : 'bg-white'}`}>
+        <section id="results-panel" className={`lg:col-span-7 p-6 lg:p-8 flex flex-col justify-between overflow-y-auto transition-colors duration-200 ${theme === 'dark' ? 'bg-neutral-950 text-neutral-100' : 'bg-white text-black'}`}>
           {result ? (
             <div className="space-y-6 flex-1">
               <div className={`flex items-center justify-end pb-4 border-b ${theme === 'dark' ? 'border-neutral-800' : 'border-black'}`}>
