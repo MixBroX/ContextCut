@@ -14,7 +14,8 @@ import {
   ArrowRight,
   Loader2,
   Sun,
-  Moon
+  Moon,
+  Download
 } from 'lucide-react';
 
 interface AnalysisResult {
@@ -81,7 +82,7 @@ export default function Home() {
     setError(null);
   };
 
-  const handleCopyMarkdown = () => {
+  const handleDownloadMarkdown = () => {
     if (!result) return;
 
     const markdown = `### Executive Summary
@@ -97,9 +98,19 @@ ${result.techStack.map(t => `- ${t}`).join('\n')}
 ${result.edgeCases.map(e => `- ${e}`).join('\n')}
 `;
 
-    navigator.clipboard.writeText(markdown);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    const blob = new Blob([markdown], { type: 'text/markdown;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'contextcut-analysis.md';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const handleDownloadPDF = () => {
+    window.print();
   };
 
   const loadSample = () => {
@@ -243,26 +254,30 @@ ${result.edgeCases.map(e => `- ${e}`).join('\n')}
                   <Terminal className="w-4 h-4" />
                   <span>Structured Output Analysis</span>
                 </div>
-                <button
-                  onClick={handleCopyMarkdown}
-                  className={`flex items-center space-x-1.5 text-xs font-mono border px-3 py-1.5 transition-colors ${
-                    theme === 'dark'
-                      ? 'border-neutral-700 bg-neutral-900 text-neutral-200 hover:bg-neutral-800 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]'
-                      : 'border-black bg-white text-black hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
-                  }`}
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span>Copied!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Copy Markdown</span>
-                    </>
-                  )}
-                </button>
+                <div className="flex items-center space-x-2">
+                  <button
+                    onClick={handleDownloadMarkdown}
+                    className={`flex items-center space-x-1.5 text-xs font-mono border px-3 py-1.5 transition-colors ${
+                      theme === 'dark'
+                        ? 'border-neutral-700 bg-neutral-900 text-neutral-200 hover:bg-neutral-800 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]'
+                        : 'border-black bg-white text-black hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
+                    }`}
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>Download .MD</span>
+                  </button>
+                  <button
+                    onClick={handleDownloadPDF}
+                    className={`flex items-center space-x-1.5 text-xs font-mono border px-3 py-1.5 transition-colors ${
+                      theme === 'dark'
+                        ? 'border-neutral-700 bg-neutral-900 text-neutral-200 hover:bg-neutral-800 shadow-[2px_2px_0px_0px_rgba(255,255,255,0.2)]'
+                        : 'border-black bg-white text-black hover:bg-black hover:text-white shadow-[2px_2px_0px_0px_rgba(0,0,0,1)]'
+                    }`}
+                  >
+                    <Download className="w-3.5 h-3.5 text-emerald-400" />
+                    <span>Download PDF</span>
+                  </button>
+                </div>
               </div>
 
               {/* Summary Card */}
