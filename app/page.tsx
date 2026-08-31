@@ -164,7 +164,7 @@ ${result.edgeCases.map(e => `- ${e}`).join('\n')}
       {/* Main Workspace Layout */}
       <main className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 min-h-[calc(100vh-73px)]">
         {/* Left Column: Input Form */}
-        <section className={`lg:col-span-5 border-r p-6 flex flex-col justify-between transition-colors duration-200 ${theme === 'dark' ? 'border-neutral-800 bg-neutral-900/40' : 'border-black bg-neutral-50/50'}`}>
+        <section className={`lg:col-span-5 border-r p-6 flex flex-col justify-between transition-colors duration-200 print:hidden ${theme === 'dark' ? 'border-neutral-800 bg-neutral-900/40' : 'border-black bg-neutral-50/50'}`}>
           <form onSubmit={handleAnalyze} className="space-y-6 flex-1 flex flex-col">
             <div className="space-y-2">
               <div className="flex items-center justify-between">
@@ -249,11 +249,7 @@ ${result.edgeCases.map(e => `- ${e}`).join('\n')}
         <section className={`lg:col-span-7 p-6 lg:p-8 flex flex-col justify-between overflow-y-auto transition-colors duration-200 ${theme === 'dark' ? 'bg-neutral-950' : 'bg-white'}`}>
           {result ? (
             <div className="space-y-6 flex-1">
-              <div className={`flex items-center justify-between pb-4 border-b ${theme === 'dark' ? 'border-neutral-800' : 'border-black'}`}>
-                <div className="font-mono text-xs uppercase tracking-wider font-semibold flex items-center space-x-2">
-                  <Terminal className="w-4 h-4" />
-                  <span>Structured Output Analysis</span>
-                </div>
+              <div className={`flex items-center justify-end pb-4 border-b ${theme === 'dark' ? 'border-neutral-800' : 'border-black'}`}>
                 <div className="flex items-center space-x-2">
                   <button
                     onClick={handleDownloadMarkdown}
@@ -357,10 +353,7 @@ ${result.edgeCases.map(e => `- ${e}`).join('\n')}
             </div>
           )}
 
-          <div className={`mt-8 pt-4 border-t flex items-center justify-between text-xs font-mono ${theme === 'dark' ? 'border-neutral-800 text-neutral-500' : 'border-neutral-200 text-neutral-400'}`}>
-            <span>Swiss Minimalist Design System</span>
-            <span>Dark Mode Default</span>
-          </div>
+          <div className="mt-8 pt-4"></div>
         </section>
       </main>
     </div>
