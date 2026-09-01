@@ -120,6 +120,8 @@ ContextCut relies on robust system prompt constraints rather than fragile regex 
 }
 ```
 ---
+---
+
 ### API Key Protection
 To prevent credential leaks, the browser never instantiates the `GoogleGenAI` client directly. All payloads are routed through a protected Next.js API route that validates input length, injects the server-side environment key, and handles model exceptions gracefully.
 
