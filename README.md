@@ -38,7 +38,7 @@ Engineering teams and product managers waste countless hours translating messy c
 ## 📐 Architecture & Data Flow
 
 ```text
-┌──────────────┐         POST /api/analyze         ┌─────────────────────────┐
+┌──────────────┐         POST /api/analyze       ┌─────────────────────────┐
 │ Client UI    │ ──────────────────────────────► │ Next.js API Route       │
 │ (React/TS)   │                                 │ (Server-side Validation)│
 └──────────────┘                                 └─────────────────────────┘
