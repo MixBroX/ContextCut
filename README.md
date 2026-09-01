@@ -123,16 +123,7 @@ ContextCut relies on robust system prompt constraints rather than fragile regex 
 ### API Key Protection
 To prevent credential leaks, the browser never instantiates the `GoogleGenAI` client directly. All payloads are routed through a protected Next.js API route that validates input length, injects the server-side environment key, and handles model exceptions gracefully.
 
----
 
-## 🗺️ Future Roadmap
-
-- [ ] **Jira & Linear Integration:** Direct one-click export of generated user stories to active project boards.
-- [ ] **Multi-File Ingestion:** Support for uploading PDF briefs, audio transcript files (`.mp3`, `.wav`), and codebase READMEs.
-- [ ] **Custom JSON Schemas:** Allow teams to define their own output structures (e.g., API contracts, database schemas).
-- [ ] **Collaborative Workspace:** Real-time multi-user editing and sharing of parsed specifications via encrypted links.
-
----
 
 ## 📄 License
 
